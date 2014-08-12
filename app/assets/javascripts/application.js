@@ -12,5 +12,16 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+
+var updatePrices = function () {
+  $.ajax({
+    method: "get",
+    url: "/stocks.json",
+    success: function (data) {
+      console.log("doing stuff")
+    }
+  })
+};
+
+var intervalId = window.setInterval(updatePrices, 1080);
+

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :stocks
-
+  resources :stocks do
+    collection do
+      get :update_stocks, :format => :json
+    end
+  end
+  root "stocks#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

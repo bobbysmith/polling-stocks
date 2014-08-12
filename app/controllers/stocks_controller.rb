@@ -4,7 +4,12 @@ class StocksController < ApplicationController
   # GET /stocks
   # GET /stocks.json
   def index
-    @stocks = Stock.all
+    respond_to do |format|
+      format.html {}
+      format.json do
+
+      end
+    end
   end
 
   # GET /stocks/1
