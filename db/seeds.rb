@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'faker'
+
+
+20.times do |i|
+  name = Faker::Company.name
+  puts "creating stock #{name}..."
+  Stock.create(name: name)
+end
