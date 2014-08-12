@@ -7,7 +7,12 @@ class StocksController < ApplicationController
     respond_to do |format|
       format.html {}
       format.json do
+        stocks = Stock.all.sample(rand(1..5))
+        stocks.each do |stock|
+          stock.price = rand(-1000..1000)
+        end
 
+        render :json => stocks
       end
     end
   end

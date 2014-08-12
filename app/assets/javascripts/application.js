@@ -18,7 +18,7 @@ var updatePrices = function () {
     method: "get",
     url: "/stocks.json",
     success: function (data) {
-      console.log("doing stuff")
+      console.log(data[0].name);
     }
   })
 };
