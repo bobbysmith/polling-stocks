@@ -16,12 +16,10 @@
 var updatePrices = function () {
   $.ajax({
     method: "get",
-    url: "/stocks.json",
+    url: "persons/" + this.id + "/update_stocks.json",
     success: function (data) {
-      console.log(data[0].name, data[0].price);
+      console.log(data);
     }
   })
 };
-
-var intervalId = window.setInterval(updatePrices, 1080);
 

@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+  get 'persons/stocks'
+
   resources :stocks do
     collection do
       get :update_stocks, :format => :json
     end
   end
+
+  get "persons/:id/update_stocks" => "persons#update_stocks", :as => :update_person_stocks, :format => :json
+
   root "stocks#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

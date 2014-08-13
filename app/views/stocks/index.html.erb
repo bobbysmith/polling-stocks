@@ -1,2 +1,11 @@
 <h1>Listing stocks</h1>
 
+
+<%= content_for :javascripts do %>
+  <script>
+    !function () {
+      var people = <%= raw @persons.to_json(:include => :stocks) %>;
+    }();
+  </script>
+<% end %>
+
