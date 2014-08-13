@@ -1,3 +1,4 @@
 class Person < ActiveRecord::Base
-  has_many :stocks
+  has_many :assets
+  has_many :stocks, :through => :assets
 end
