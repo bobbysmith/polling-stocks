@@ -1,5 +1,27 @@
 <h1>Listing stocks</h1>
 
+<table>
+  <thead>
+    <tr>
+      <% @persons.each do |p| %>
+         <td><%= p.name %> | </td>
+      <% end %>
+    </tr>
+    <tr>
+      <% @assets.each do |asset| %>
+      <%= asset.stock_id %>
+        <% asset.person_id do |stock| %>
+          <%= stock.name %>
+        <% end %>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+
+    </tr>
+  </tbody>
+</table>
 
 <%= content_for :javascripts do %>
   <script>

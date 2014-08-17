@@ -5,11 +5,15 @@ class StocksController < ApplicationController
   # GET /stocks.json
   def index
     @persons = Person.all
+    @stocks = Stock.all
+    @assets = Asset.all
   end
 
   # GET /stocks/1
   # GET /stocks/1.json
   def show
+    @asset = Asset.find(person_id)
+    @stock = Stock.find(params[:id])
   end
 
   # GET /stocks/new
@@ -19,6 +23,7 @@ class StocksController < ApplicationController
 
   # GET /stocks/1/edit
   def edit
+    # @stock = Stock
   end
 
   # POST /stocks
