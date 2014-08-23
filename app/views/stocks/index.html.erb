@@ -1,33 +1,28 @@
 <h1>Listing stocks</h1>
-
-<table>
-  <thead>
-    <tr>
-      <% @persons.each do |p| %>
-         <td><%= p.name %> | </td>
-      <% end %>
-    </tr>
-    <tr>
-      <% @assets.each do |asset| %>
-      <%= asset.stock_id %>
-        <% asset.person_id do |stock| %>
-          <%= stock.name %>
-        <% end %>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-
-    </tr>
-  </tbody>
-</table>
+<div class="people-container"></div>
+<script type="text/templates" class="people-template">
+    <div class="people">
+      <h4>{{name}}</h4>
+    </div>
+</script>
+ <script type="text/templates" class="stock-template">
+    <div class="stock">{{name}} - {{price}}</div>
+</script>
 
 <%= content_for :javascripts do %>
   <script>
-    !function () {
       var people = <%= raw @persons.to_json(:include => :stocks) %>;
-    }();
+      var personTemplate = _.template($(".people-template").html());
+      var stockTemplate = _.template($(".stock-template").html());
+
+      people.forEach(function(person) {
+        var personHtml = personTemplate(person);
+        var $personHtml = $(personHtml);
+        $(".people-container").append($personHtml);
+        person.stocks.forEach(function(stock){
+          $personHtml.append(stockTemplate(stock));
+        });
+      });
   </script>
 <% end %>
 

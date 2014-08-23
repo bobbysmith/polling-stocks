@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require underscore
 
 var updatePrices = function () {
   $.ajax({
@@ -23,3 +24,6 @@ var updatePrices = function () {
   })
 };
 
+_.templateSettings = {
+  interpolate: /\{\{(.+?)\}\}/g
+};
