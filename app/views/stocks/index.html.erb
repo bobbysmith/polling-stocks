@@ -3,26 +3,51 @@
 <script type="text/templates" class="people-template">
     <div class="people">
       <h4>{{name}}</h4>
+      <div class="stocks-container"></div>
     </div>
 </script>
  <script type="text/templates" class="stock-template">
-    <div class="stock">{{name}} - {{price}}</div>
+    <div class="stock">{{name}} :: ${{price}}</div>
 </script>
 
 <%= content_for :javascripts do %>
   <script>
+
       var people = <%= raw @persons.to_json(:include => :stocks) %>;
       var personTemplate = _.template($(".people-template").html());
       var stockTemplate = _.template($(".stock-template").html());
 
+      var getStockPrices = function (id, successCb) {
+        $.ajax({
+          url: '/persons/' + id + '/update_stocks.json',
+          method: 'GET',
+          success: successCb
+        });
+      };
+
+
+
       people.forEach(function(person) {
         var personHtml = personTemplate(person);
         var $personHtml = $(personHtml);
+        var $stocksContainer = $personHtml.find('.stocks-container');
         $(".people-container").append($personHtml);
-        person.stocks.forEach(function(stock){
-          $personHtml.append(stockTemplate(stock));
-        });
+        var stocks = [];
+
+        var doSomething = function() {
+          getStockPrices(person.id, function (data) {
+          stocks = data;
+            $stocksContainer.empty();
+            stocks.forEach(function (stock){
+              $stocksContainer.append(stockTemplate(stock));
+            });
+          });
+        };
+        doSomething();
+
+        setInterval(doSomething, 1000);
       });
+
   </script>
 <% end %>
 
